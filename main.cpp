@@ -80,12 +80,23 @@ int main() {
     char ping_rec[7];
 
     write(fd,&ping_cmd,sizeof(ping_cmd));
-    read(fd,&ping_rec,sizeof(ping_rec));
+    bool fin = false;
+    while(!fin){
+        read(fd,&ping_rec,sizeof(ping_rec));
 
-    int i;
-    for (i = 0; i < sizeof(ping_rec); i++)
-    {
-        printf("%d ",ping_rec[i]);
+        int m=0;
+        for(int i=0;i<sizeof (ping_rec);i++){
+            if(ping_rec[i]!=0){
+                m++;
+            }
+        }
+        if(m!=0){
+            for(int j=0;j<m;j++){
+                qDebug() << ping_rec[j];
+            }
+        }
+        m=0;
+        memset(ping_rec,0,sizeof (ping_rec));
     }
 
 
