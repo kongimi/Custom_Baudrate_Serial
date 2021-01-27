@@ -67,6 +67,7 @@ int main() {
     cfmakeraw(&options);
     options.c_cflag |= (CLOCAL | CREAD);
     options.c_cflag &= ~CRTSCTS;
+    options.c_cflag |= PARENB; // even parity
     if (tcsetattr(fd, TCSANOW, &options) != 0)
     {
         //return -1;
